@@ -40,6 +40,8 @@ def mode_execution():
     else:
         binary_to_text(entry.get())
 
+# yo, you looked through the source code! Yeah, it's a mess, but it's mine :)
+
 # mainline
 
 window = tk.Tk()
