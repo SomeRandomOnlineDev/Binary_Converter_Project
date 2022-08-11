@@ -1,12 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
 
+
 def clear_result():
     for w in result.winfo_children():
         w.destroy()
     result.grid_remove()
 
     entry.delete(0, tk.END)
+
 
 def binary_to_text(convert):
     for w in result.winfo_children():
@@ -17,6 +19,7 @@ def binary_to_text(convert):
     ttk.Label(result, text=ascii_string).pack()
 
     result.grid(row=2, column=0, padx=3, pady=3)
+
 
 def text_to_binary(convert):
     # clear existing result
@@ -30,12 +33,14 @@ def text_to_binary(convert):
 
     result.grid(row=2, column=0, padx=3, pady=3)
 
+
 def mode_execution():
     mode = variable.get()
     if mode == 'Text to binary':
         text_to_binary(entry.get())
     elif mode == 'Binary to text':
         binary_to_text(entry.get())
+
 
 # yo, you looked through the source code! Yeah, it's a mess, but it's mine :)
 
