@@ -1,3 +1,4 @@
+from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 
@@ -5,7 +6,6 @@ from tkinter import ttk
 def clear_result():
     for w in result.winfo_children():
         w.destroy()
-    result.grid_remove()
 
     entry.delete(0, tk.END)
 
@@ -18,7 +18,7 @@ def binary_to_text(convert):
     ascii_string = "".join([chr(int(binary, 2)) for binary in convert.split(" ")])
     ttk.Label(result, text=ascii_string).pack()
 
-    result.grid(row=2, column=0, padx=3, pady=3)
+    result.pack(side=BOTTOM, expand=TRUE, fill=BOTH, padx=3, pady=3)
 
 
 def text_to_binary(convert):
@@ -31,7 +31,7 @@ def text_to_binary(convert):
         binary = format(ascii_values, '08b')
         ttk.Label(result, text=f'{x} = {binary}').pack()
 
-    result.grid(row=2, column=0, padx=3, pady=3)
+    result.pack(side=BOTTOM, expand=TRUE, fill=BOTH, padx=3, pady=3)
 
 
 def mode_execution():
@@ -51,8 +51,14 @@ window.title('Binary Converter')
 
 window.minsize(330, 80)
 
-entry = ttk.Entry(window, width=20)
-entry.grid(row=0, column=0, padx=3, pady=3)
+frame1 = ttk.Frame(window)
+frame1.pack(side=TOP, expand=TRUE, fill=BOTH)
+
+frame2 = ttk.Frame(window)
+frame2.pack(side=TOP, expand=TRUE, fill=BOTH)
+
+entry = ttk.Entry(frame1, width=20)
+entry.pack(side=LEFT, expand=TRUE, fill=BOTH, padx=3, pady=3)
 
 options = ['Select a conversion mode', 'Text to binary', 'Binary to text']
 
@@ -61,22 +67,22 @@ variable.set(options[0])
 
 # frame for the conversion result
 result = ttk.Frame(master=window)
-result.grid(row=2, column=0, padx=3, pady=3)
+result.pack(side=BOTTOM, expand=TRUE, fill=BOTH, padx=3, pady=3)
 
-drop = ttk.OptionMenu(window, variable, *options)
-drop.grid(row=0, column=1, padx=3, pady=3)
+drop = ttk.OptionMenu(frame1, variable, *options)
+drop.pack(side=LEFT, expand=TRUE, fill=BOTH, padx=3, pady=3)
 
-btn_clear_result = ttk.Button(master=window, text='Clear results', command=lambda: clear_result())
-btn_clear_result.grid(row=1, column=1, padx=3, pady=3)
+btn_misc_convert = ttk.Button(master=frame2, text='Convert it!', command=lambda: mode_execution())
+btn_misc_convert.pack(side=LEFT, expand=TRUE, fill=BOTH, padx=3, pady=3)
 
-btn_misc_convert = ttk.Button(master=window, text='Convert it!', command=lambda: mode_execution())
-btn_misc_convert.grid(row=1, column=0, padx=3, pady=3)
+btn_clear_result = ttk.Button(master=frame2, text='Clear results', command=lambda: clear_result())
+btn_clear_result.pack(side=LEFT, expand=TRUE, fill=BOTH, padx=3, pady=3)
 
 # these are relics from a previous version, still here, just in case
-# btn_binary_convert = tk.Button(master=window, relief=tk.RIDGE, text='Convert the binary to text', command=lambda: binary_to_text(entry.get()))
-# btn_binary_convert.grid(row=0, column=1, padx=3, pady=3)
+# btn_binary_convert = ttk.Button(master=window, text='Convert the binary to text', command=lambda: binary_to_text(entry.get()))
+# btn_binary_convert.grid(row=0, column=2, padx=3, pady=3)
 
-# btn_text_convert = tk.Button(master=window, relief=tk.RIDGE, text='Convert the text to binary', command=lambda: text_to_binary(entry.get()))
-# btn_text_convert.grid(row=1, column=1, padx=3, pady=3)
+# btn_text_convert = ttk.Button(master=window, text='Convert the text to binary', command=lambda: text_to_binary(entry.get()))
+# btn_text_convert.grid(row=1, column=2, padx=3, pady=3)
 
 window.mainloop()
